@@ -1,0 +1,46 @@
+// first solution
+
+class Solution {
+    public boolean isValid(String s) {
+        int roundCount = 0;
+        int curlyCount = 0;
+        int squareCount = 0;
+        String queue = "";
+        for (int i=0; i < s.length(); i++) {
+            char character = s.charAt(i);
+            if (character == '(') {
+                roundCount++;
+                queue = queue + "(";
+            } else if (character == ')') {
+                roundCount--;
+                if (roundCount < 0) {return false;}
+                int last_index = queue.length() - 1;
+                if (queue.charAt(last_index) == '(') {
+                    queue = queue.substring(0, last_index);
+                } else {return false;}
+            } else if (character == '{') {
+                curlyCount++;
+                queue = queue + "{";
+            } else if (character == '}') {
+                curlyCount--;
+                if (curlyCount < 0) {return false;}
+                int last_index = queue.length() - 1;
+                if (queue.charAt(last_index) == '{') {
+                    queue = queue.substring(0, last_index);
+                } else {return false;}
+            } else if (character == '[') {
+                squareCount++;
+                queue = queue + "[";
+            } else {
+                squareCount--;
+                if (squareCount < 0) {return false;}
+                int last_index = queue.length() - 1;
+                if (queue.charAt(last_index) == '[') {
+                    queue = queue.substring(0, last_index);
+                } else {return false;}
+            }
+        }
+        if ((roundCount == 0) && (curlyCount == 0) && (squareCount == 0)) {return true;}
+        else {return false;}
+    }
+}
