@@ -1,4 +1,4 @@
-// first solution
+// first attempt
 
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -35,7 +35,7 @@ class Solution {
     
 }
 
-// second solution
+// second attempt
 
 class Solution {
 
