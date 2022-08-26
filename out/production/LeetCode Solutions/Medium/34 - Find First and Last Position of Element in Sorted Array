@@ -1,0 +1,32 @@
+class Solution {
+
+public int[] searchRange(int[] nums, int target) {
+        int startIndex = Arrays.binarySearch(nums, target);
+        int[] range = new int[2];
+        if (startIndex < 0) {
+            range[0] = -1;
+            range[1] = -1;
+            return range;
+        }
+        else {
+            int leftIndex = startIndex;
+            int rightIndex = startIndex;
+            while (leftIndex - 1 >= 0) {
+                if (nums[leftIndex - 1] == target) {
+                    leftIndex--;
+                }
+                else {break;}
+            }
+            while (rightIndex + 1 < nums.length) {
+                if (nums[rightIndex + 1] == target) {
+                    rightIndex++;
+                }
+                else {break;}
+            }
+            range[0] = leftIndex;
+            range[1] = rightIndex;
+            return range;
+        }
+    }
+
+}

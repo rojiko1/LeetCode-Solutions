@@ -1,0 +1,82 @@
+// first attempt
+
+class Solution {
+
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+            if (nums1.length + nums2.length == 1) {
+                if (nums1.length == 0) {return nums2[0];}
+                else {return nums1[0];}
+            }
+            else {
+                int[] terms = nthTerm(nums1, nums2, (nums1.length + nums2.length) / 2);
+                if (((nums1.length + nums2.length) / 2) % 2 == 0) {
+                    return ((double) terms[0] + (double) terms[1]) / 2.0;
+                }
+                else {
+                    return (double) terms[1];
+                }
+            }
+        }
+
+    private int[] nthTerm(int[] nums1, int[] nums2, int n) {
+        if (nums1.length == 0) {
+            return new int[]{nums2[n - 1], nums2[n]};
+        }
+        else if (nums2.length == 0) {
+            return new int[]{nums1[n - 1], nums1[n]};
+        }
+        else if (n == 1) {
+            int count = 0;
+            int i = 0;
+            int min = Integer.MAX_VALUE;
+            int secondMin = Integer.MAX_VALUE;
+            while ((count < 2) && (i < nums1.length)) {
+                if (nums1[i] < min) {
+                    secondMin = min;
+                    min = nums1[i];
+                }
+                else if (nums1[i] < secondMin) {
+                    secondMin = nums1[i];
+                }
+                count++;
+                i++;
+            }
+            count = 0;
+            i = 0;
+            while ((count < 2) && (i < nums2.length)) {
+                if (nums2[i] < min) {
+                    secondMin = min;
+                    min = nums2[i];
+                }
+                else if (nums2[i] < secondMin) {
+                    secondMin = nums2[i];
+                }
+                count++;
+                i++;
+            }
+            return new int[]{min, secondMin};
+        }
+        else {
+            double multiplier = (double) n / (nums1.length + nums2.length);
+            int middle1Index = (int) (multiplier * nums1.length);
+            int middle2Index = (int) (multiplier * nums2.length);
+            if (nums1[middle1Index] <= nums2[middle2Index]) {
+                if (nums1.length == 1) {
+                    return nthTerm(new int[]{}, nums2, n - 1);
+                }
+                else {
+                    return nthTerm(Arrays.copyOfRange(nums1, middle1Index, nums1.length), nums2, n - middle1Index);
+                }
+            }
+            else {
+                if (nums2.length == 1) {
+                    return nthTerm(nums1, new int[]{}, n - 1);
+                }
+                else {
+                    return nthTerm(nums1, Arrays.copyOfRange(nums2, middle2Index, nums2.length), n - middle2Index);
+                }
+            }
+        }
+    }
+
+}

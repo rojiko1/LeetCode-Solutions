@@ -1,0 +1,22 @@
+class Solution {
+
+public List<String> generateParenthesis(int n) {
+        List<String> combinations = new ArrayList<>();
+        combinations.add("");
+        for (int i = 1; i <= n; i++) {
+            Set<String> newCombinations = new HashSet<>();
+            for (int j = 0; j < combinations.size(); j++) {
+                String s = combinations.get(j);
+                newCombinations.add("()" + s);
+                newCombinations.add(s + "()");
+                for (int k = 1; k < s.length(); k++) {
+                    newCombinations.add(s.substring(0, k) + "()" + s.substring(k, s.length()));
+                }
+            }
+            combinations.clear();
+            combinations.addAll(newCombinations);
+        }
+        return combinations;
+    }
+
+}
