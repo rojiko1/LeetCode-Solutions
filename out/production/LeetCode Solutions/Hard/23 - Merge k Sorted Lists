@@ -1,0 +1,47 @@
+class Solution {
+
+    public ListNode mergeKLists(ListNode[] lists) {
+        if (lists.length == 0) {
+            return null;
+        }
+        else if (lists.length == 1) {
+            return lists[0];
+        }
+        else {
+            ListNode left = mergeKLists(Arrays.copyOfRange(lists, 0, lists.length / 2));
+            ListNode right = mergeKLists(Arrays.copyOfRange(lists, lists.length / 2, lists.length));
+
+            return mergeTwoLists(left, right);
+        }
+    }
+
+    private ListNode mergeTwoLists(ListNode first, ListNode second) {
+        ListNode head = new ListNode();
+        ListNode current = head;
+        while ((first != null) || (second != null)) {
+            if (first == null) {
+                current.next = second;
+                current = current.next;
+                second = second.next;
+            }
+            else if (second == null) {
+                current.next = first;
+                current = current.next;
+                first = first.next;
+            }
+            else if (first.val <= second.val) {
+                current.next = first;
+                current = current.next;
+                first = first.next;
+            }
+            else {
+                current.next = second;
+                current = current.next;
+                second = second.next;
+            }
+        }
+        head = head.next;
+        return head;
+    }
+
+}

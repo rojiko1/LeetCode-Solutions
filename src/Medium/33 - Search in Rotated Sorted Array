@@ -1,0 +1,35 @@
+class Solution {
+
+    public int search(int[] nums, int target) {
+        int index = 0;
+        if (nums[0] > nums[nums.length - 1]) {
+            int front = 0;
+            int back = nums.length;
+            int mid;
+            while (true) {
+                mid = (front + back) / 2;
+                if (nums[mid] < nums[mid - 1]) {
+                    index = Math.max(Arrays.binarySearch(nums, 0, mid, target), Arrays.binarySearch(nums, mid, nums.length, target));
+                    break;
+                }
+                else if (nums[mid] > nums[0]) {
+                    front = mid + 1;
+                }
+                else {
+                    back = mid;
+                }
+            }
+        }
+        else {
+            index = Arrays.binarySearch(nums, target);
+        }
+
+        if (index < 0) {
+            return -1;
+        }
+        else {
+            return index;
+        }
+    }
+
+}

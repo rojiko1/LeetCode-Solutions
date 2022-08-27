@@ -1,6 +1,4 @@
-// this is a workspace
-
-import java.util.Arrays;
+// first attempt
 
 class Solution {
 
@@ -23,16 +21,12 @@ class Solution {
             int rightMaxIndex = height.length - 1;
             int i = leftMaxIndex + 1;
             int j = rightMaxIndex - 1;
-            int fill = 0;
             while ((i < rightMaxIndex) || (j > leftMaxIndex)) {
                 while (i < rightMaxIndex) {
                     if (height[i] <= leftMax) {
                         i++;
                     }
                     else {
-                        for (int k = leftMaxIndex + 1; k < i; k++) {
-                            fill += (Math.min(leftMax, height[i]) - height[k]);
-                        }
                         leftMax = height[i];
                         leftMaxIndex = i;
                         i++;
@@ -44,9 +38,6 @@ class Solution {
                         j--;
                     }
                     else {
-                        for (int k = j + 1; k < rightMaxIndex; k++) {
-                            fill += (Math.min(height[j], rightMax) - height[k]);
-                        }
                         rightMax = height[j];
                         rightMaxIndex = j;
                         j--;
@@ -54,17 +45,15 @@ class Solution {
                     }
                 }
             }
+            int fill = 0;
             for (int k = leftMaxIndex + 1; k < rightMaxIndex; k++) {
                 fill += (Math.min(leftMax, rightMax) - height[k]);
             }
-            return fill;
+            return trap(Arrays.copyOfRange(height, 0, leftMaxIndex + 1)) + trap(Arrays.copyOfRange(height, rightMaxIndex, height.length)) + fill;
         }
     }
 
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-        int[] arr = {0,1,2,0,3,0,1,2,0,0,4,2,1,2,5,0,1,2,0,2};
-        System.out.println(solution.trap(arr));
-    }
-
 }
+
+// second attempt
+
