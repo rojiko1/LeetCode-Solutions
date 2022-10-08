@@ -1,4 +1,4 @@
-class Solution {
+class Workspace.Solution {
 
     public boolean isPalindrome(int x) {
         String stringifiedX = String.valueOf(x);

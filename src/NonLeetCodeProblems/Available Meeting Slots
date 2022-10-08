@@ -1,0 +1,137 @@
+Problem Statement:
+Suppose two people are trying to find all the available time slots within their schedules where they can have a meeting
+The schedules provided will include the start and end times of the person's existing meetings
+You will also be provided with time bounds (times when the person is willing to have a meeting
+All times provided are in military time
+Return a list of all the times that work for both individuals
+
+Sample Input:
+person 1 schedule: {{"11:20", "12:30"}, {"13:00", "15:20"}}
+person 2 schedule: {{"9:15", "10:51"}, {"15:45","16:40"}}
+person 1 bounds: {"8:00", "18:00"}
+person 2 bounds: {"9:00", "17:00"}
+meeting length: 30
+
+Sample Output:
+[[12:30, 13:00]]
+
+My Answer:
+class Workspace.Solution {
+
+    public ArrayList<ArrayList<String>> availableSlots(String[][] p1Taken, String[][] p2Taken, String[] p1Bounds, String[] p2Bounds, int length) {
+        ArrayList<ArrayList<String>> result = new ArrayList<>();
+        ArrayList<String> slot;
+        if ((p1Taken.length == 0) && (p2Taken.length == 0)) {
+            slot = new ArrayList<>();
+            int slotStart = Math.max(timeToMinutes(p1Bounds[0]), timeToMinutes(p2Bounds[0]));
+            int slotEnd = Math.min(timeToMinutes(p1Bounds[1]), timeToMinutes(p2Bounds[1]));
+            if (slotEnd - slotStart >= length) {
+                slot.add(minToTime(slotStart));
+                slot.add(minToTime(slotEnd));
+                result.add(slot);
+            }
+            return result;
+        }
+        int p1Start = timeToMinutes(p1Bounds[0]);
+        int p2Start = timeToMinutes(p2Bounds[0]);
+        int p1End;
+        int p2End;
+        if (p1Taken.length == 0) {
+            p1End = timeToMinutes(p1Bounds[1]);
+        }
+        else {
+            p1End = timeToMinutes(p1Taken[0][0]);
+        }
+        if (p2Taken.length == 0) {
+            p2End = timeToMinutes(p2Bounds[1]);
+        }
+        else {
+            p2End = timeToMinutes(p2Taken[0][0]);
+        }
+        int p1Pointer = 0;
+        int p2Pointer = 0;
+        while ((p1End != timeToMinutes(p1Bounds[1])) || (p2End != timeToMinutes(p2Bounds[1]))) {
+            while ((p1Pointer < p1Taken.length)) {
+                if (p2End < p1End) {
+                        break;
+                }
+                else if (p1End <= p2Start) {
+                    p1Start = timeToMinutes(p1Taken[p1Pointer][1]);
+                    p1Pointer++;
+                    if (p1Pointer == p1Taken.length) {
+                        p1End = timeToMinutes(p1Bounds[1]);
+                    }
+                    else {
+                        p1End = timeToMinutes(p1Taken[p1Pointer][0]);
+                    }
+                }
+                else {
+                    break;
+                }
+            }
+            while ((p2Pointer < p2Taken.length)) {
+                if (p1End < p2End) {
+                    break;
+                }
+                else if (p2End <= p1Start) {
+                    p2Start = timeToMinutes(p2Taken[p2Pointer][1]);
+                    p2Pointer++;
+                    if (p2Pointer == p2Taken.length) {
+                        p2End = timeToMinutes(p2Bounds[1]);
+                    }
+                    else {
+                        p2End = timeToMinutes(p2Taken[p2Pointer][0]);
+                    }
+                }
+                else {
+                    break;
+                }
+            }
+            if (Math.min(p1End, p2End) - Math.max(p1Start, p2Start) >= length) {
+                slot = new ArrayList<>();
+                slot.add(minToTime(Math.max(p1Start, p2Start)));
+                slot.add(minToTime(Math.min(p1End, p2End)));
+                result.add(slot);
+            }
+            if (p1End < p2End) {
+                p1Start = timeToMinutes(p1Taken[p1Pointer][1]);
+                p1Pointer++;
+                if (p1Pointer == p1Taken.length) {
+                    p1End = timeToMinutes(p1Bounds[1]);
+                }
+                else {
+                    p1End = timeToMinutes(p1Taken[p1Pointer][0]);
+                }
+            }
+            else {
+                p2Start = timeToMinutes(p2Taken[p2Pointer][1]);
+                p2Pointer++;
+                if (p2Pointer == p2Taken.length) {
+                    p2End = timeToMinutes(p2Bounds[1]);
+                }
+                else {
+                    p2End = timeToMinutes(p2Taken[p2Pointer][0]);
+                }
+            }
+        }
+        return result;
+    }
+
+    int timeToMinutes(String time) {
+        String hour = time.split(":", 0)[0];
+        String minutes = time.split(":", 0)[1];
+        return (Integer.valueOf(hour) * 60) + Integer.valueOf(minutes);
+    }
+
+    String minToTime(int minutes) {
+        String time;
+        if ((minutes % 60) < 10) {
+            time = (minutes / 60) + ":0" + (minutes % 60);
+        }
+        else {
+            time = (minutes / 60) + ":" + (minutes % 60);
+        }
+        return time;
+    }
+
+}

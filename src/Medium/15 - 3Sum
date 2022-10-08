@@ -1,0 +1,95 @@
+// first attempt
+
+class Workspace.Solution {
+
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> combos = new ArrayList<List<Integer>>();
+        HashMap<Integer, Integer> elements = new HashMap<>();
+        int firstNonNeg = -1;
+        Arrays.sort(nums);
+        int quantity = 0;
+        if ((nums[0] >= 0) || (nums[nums.length - 1] <= 0)) {
+            for (int i = 0; i < 3; i++) {
+                if ((nums[i] == 0) || (nums[nums.length - i - 1] == 0)) {
+                    quantity++;
+                }
+                else {
+                    break;
+                }
+            }
+            if (quantity == 3) {
+                ArrayList<Integer> combo = new ArrayList<Integer>();
+                combo.add(0);
+                combo.add(0);
+                combo.add(0);
+                combos.add(combo);
+            }
+        }
+        else {
+            quantity = 1;
+            for (int i = 1; i < nums.length; i++) {
+                if (nums[i - 1] == nums[i]) {
+                    quantity++;
+                }
+                else {
+                    elements.put(nums[i - 1], quantity);
+                    quantity = 1;
+                    if ((firstNonNeg == -1) && (nums[i] >= 0)) {
+                        firstNonNeg = i;
+                    }
+                }
+            }
+            elements.put(nums[nums.length - 1], quantity);
+            for (int j = firstNonNeg; j < nums.length; j++) {
+                if (nums[j] != nums[j - 1]) {
+                    for (int k = 0; k < firstNonNeg; k++) {
+                        if (nums[k] != nums[k + 1]) {
+                            int complement = 0 - (nums[j] + nums[k]);
+                            if ((complement <= nums[j]) && (complement >= nums[k])) {
+                                if (elements.containsKey(complement)) {
+                                    int quant = elements.get(complement);
+                                    if (complement == nums[k]) {
+                                        if (quant >= 2) {
+                                            ArrayList<Integer> combo = new ArrayList<Integer>();
+                                            combo.add(nums[j]);
+                                            combo.add(nums[k]);
+                                            combo.add(complement);
+                                            combos.add(combo);
+                                        }
+                                    }
+                                    else if (complement == nums[j]) {
+                                        if (quant >= 2) {
+                                            ArrayList<Integer> combo = new ArrayList<Integer>();
+                                            combo.add(nums[j]);
+                                            combo.add(nums[k]);
+                                            combo.add(complement);
+                                            combos.add(combo);
+                                        }
+                                    }
+                                    else {
+                                        ArrayList<Integer> combo = new ArrayList<Integer>();
+                                        combo.add(nums[j]);
+                                        combo.add(nums[k]);
+                                        combo.add(complement);
+                                        combos.add(combo);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (elements.containsKey(0)) {
+                if (elements.get(0) >= 3) {
+                    ArrayList<Integer> combo = new ArrayList<Integer>();
+                    combo.add(0);
+                    combo.add(0);
+                    combo.add(0);
+                    combos.add(combo);
+                }
+            }
+        }
+        return combos;
+    }
+
+}

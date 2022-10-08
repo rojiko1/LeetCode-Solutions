@@ -1,4 +1,4 @@
-class Solution {
+class Workspace.Solution {
 
 public List<String> generateParenthesis(int n) {
         List<String> combinations = new ArrayList<>();

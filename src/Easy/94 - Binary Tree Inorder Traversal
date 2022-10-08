@@ -1,0 +1,19 @@
+class Workspace.Solution {
+
+    List<Integer> result;
+
+    public List<Integer> inorderTraversal(TreeNode root) {
+        result = new ArrayList<Integer>();
+        inorderTraverse(root);
+        return result;
+    }
+
+    private void inorderTraverse(TreeNode current) {
+        if (current != null) {
+            inorderTraverse(current.left);
+            result.add(current.val);
+            inorderTraverse(current.right);
+        }
+    }
+
+}

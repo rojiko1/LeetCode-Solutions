@@ -1,6 +1,6 @@
 // first attempt
 
-class Solution {
+class Workspace.Solution {
 
     public int trap(int[] height) {
         if (height.length <= 2) {
@@ -57,7 +57,7 @@ class Solution {
 
 // second attempt
 
-class Solution {
+class Workspace.Solution {
 
     public int trap(int[] height) {
         if (height.length <= 2) {

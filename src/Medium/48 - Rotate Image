@@ -1,4 +1,4 @@
-class Solution {
+class Workspace.Solution {
 
     public void rotate(int[][] matrix) {
         for (int i = 0; i < matrix.length / 2; i++) {

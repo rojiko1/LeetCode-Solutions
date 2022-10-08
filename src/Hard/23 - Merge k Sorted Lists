@@ -1,6 +1,6 @@
-class Solution {
+class Workspace.Solution {
 
-    public ListNode mergeKLists(ListNode[] lists) {
+    public Workspace.ListNode mergeKLists(Workspace.ListNode[] lists) {
         if (lists.length == 0) {
             return null;
         }
@@ -8,16 +8,16 @@ class Solution {
             return lists[0];
         }
         else {
-            ListNode left = mergeKLists(Arrays.copyOfRange(lists, 0, lists.length / 2));
-            ListNode right = mergeKLists(Arrays.copyOfRange(lists, lists.length / 2, lists.length));
+            Workspace.ListNode left = mergeKLists(Arrays.copyOfRange(lists, 0, lists.length / 2));
+            Workspace.ListNode right = mergeKLists(Arrays.copyOfRange(lists, lists.length / 2, lists.length));
 
             return mergeTwoLists(left, right);
         }
     }
 
-    private ListNode mergeTwoLists(ListNode first, ListNode second) {
-        ListNode head = new ListNode();
-        ListNode current = head;
+    private Workspace.ListNode mergeTwoLists(Workspace.ListNode first, Workspace.ListNode second) {
+        Workspace.ListNode head = new Workspace.ListNode();
+        Workspace.ListNode current = head;
         while ((first != null) || (second != null)) {
             if (first == null) {
                 current.next = second;

@@ -1,6 +1,6 @@
 // first attempt
 
-class Solution {
+class Workspace.Solution {
 
     public int[] twoSum(int[] nums, int target) {
         for (int i = 0; i < nums.length - 1; i ++) {
@@ -18,7 +18,7 @@ class Solution {
 
 // second attempt
 
-class Solution {
+class Workspace.Solution {
 
     public int[] twoSum(int[] nums, int target) {
         int[] numbers = Arrays.copyOf(nums, nums.length);
@@ -49,6 +49,23 @@ class Solution {
             if (firstIndexFound && secondIndexFound) {break;}
         }
         return new int[]{firstIndex, secondIndex};
+    }
+
+}
+
+// third attempt
+
+class Workspace.Solution {
+
+    public int[] twoSum(int[] nums, int target) {
+        HashMap<Integer, Integer> complements = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (complements.get(target - nums[i]) != null) {
+                return new int[] {complements.get(target - nums[i]), i};
+            }
+            complements.put(nums[i], i);
+        }
+        return new int[0];
     }
 
 }

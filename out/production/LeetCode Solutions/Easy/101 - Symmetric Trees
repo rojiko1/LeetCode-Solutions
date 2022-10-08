@@ -1,0 +1,32 @@
+class Solution {
+
+    public boolean isSymmetric(TreeNode root) {
+        return symmetricTrees(root.left, root.right);
+    }
+
+    private boolean symmetricTrees(TreeNode first, TreeNode second) {
+        if ((first == null) && (second == null)) {
+            return true;
+        }
+        else if ((first != null) && (second != null)) {
+            if (first.val == second.val) {
+                if (!symmetricTrees(first.left, second.right)) {
+                    return false;
+                }
+                else if (!symmetricTrees(first.right, second.left)) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            return false;
+        }
+    }
+
+}

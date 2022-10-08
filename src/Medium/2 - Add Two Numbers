@@ -2,14 +2,14 @@
 
 import java.math.BigInteger;
 
-class Solution {
+class Workspace.Solution {
 
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+    public Workspace.ListNode addTwoNumbers(Workspace.ListNode l1, Workspace.ListNode l2) {
         BigInteger ten = new BigInteger("10");
         int pow = 0;
         BigInteger i1 = new BigInteger("0");
         BigInteger i2 = new BigInteger("0");
-        ListNode current = l1;
+        Workspace.ListNode current = l1;
         while (current != null) {
             i1 = i1.add(BigInteger.valueOf(current.val).multiply(ten.pow(pow)));
             current = current.next;
@@ -25,13 +25,13 @@ class Solution {
         BigInteger answer = i1.add(i2);
         BigInteger mod_of_answer;
         mod_of_answer = answer.mod(ten);
-        current = new ListNode(mod_of_answer.intValue());
-        ListNode head = current;
+        current = new Workspace.ListNode(mod_of_answer.intValue());
+        Workspace.ListNode head = current;
         answer = answer.subtract(mod_of_answer);
         answer = answer.divide(ten);
         while (!answer.equals(BigInteger.valueOf(0))) {
             mod_of_answer = answer.mod(ten);
-            current.next = new ListNode(mod_of_answer.intValue());
+            current.next = new Workspace.ListNode(mod_of_answer.intValue());
             current = current.next;
             answer = answer.subtract(mod_of_answer);
             answer = answer.divide(ten);
@@ -43,16 +43,16 @@ class Solution {
 
 // second attempt
 
-class Solution {
+class Workspace.Solution {
 
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode head = new ListNode();
-        ListNode current = head;
-        ListNode l1current = l1;
-        ListNode l2current = l2;
+    public Workspace.ListNode addTwoNumbers(Workspace.ListNode l1, Workspace.ListNode l2) {
+        Workspace.ListNode head = new Workspace.ListNode();
+        Workspace.ListNode current = head;
+        Workspace.ListNode l1current = l1;
+        Workspace.ListNode l2current = l2;
         int carryOver = 0;
         while ((l1current != null) && (l2current != null)) {
-            current.next = new ListNode((l1current.val + l2current.val + carryOver) % 10);
+            current.next = new Workspace.ListNode((l1current.val + l2current.val + carryOver) % 10);
             current = current.next;
             if (l1current.val + l2current.val + carryOver >= 10) {
                 carryOver = 1;
@@ -63,7 +63,7 @@ class Solution {
         }
         if (l1current != null) {
             while (l1current != null) {
-                current.next = new ListNode((l1current.val + carryOver) % 10);
+                current.next = new Workspace.ListNode((l1current.val + carryOver) % 10);
                 current = current.next;
                 if (l1current.val + carryOver >= 10) {
                     carryOver = 1;
@@ -74,7 +74,7 @@ class Solution {
         }
         else if (l2current != null) {
             while (l2current != null) {
-                current.next = new ListNode((l2current.val + carryOver) % 10);
+                current.next = new Workspace.ListNode((l2current.val + carryOver) % 10);
                 current = current.next;
                 if (l2current.val + carryOver >= 10) {
                     carryOver = 1;
@@ -83,7 +83,7 @@ class Solution {
                 l2current = l2current.next;
             }
         }
-        if (carryOver == 1) {current.next = new ListNode(1);}
+        if (carryOver == 1) {current.next = new Workspace.ListNode(1);}
         head = head.next;
         return head;
     }
