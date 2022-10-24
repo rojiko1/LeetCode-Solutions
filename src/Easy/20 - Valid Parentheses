@@ -1,6 +1,6 @@
 // first attempt
 
-class Workspace.Solution {
+class Solution {
     public boolean isValid(String s) {
         int roundCount = 0;
         int curlyCount = 0;
@@ -49,7 +49,7 @@ class Workspace.Solution {
 
 import java.util.ArrayList;
 
-class Workspace.Solution {
+class Solution {
     public boolean isValid(String s) {
         ArrayList<String> stack = new ArrayList<String>();
         for (int i=0; i < s.length(); i++) {

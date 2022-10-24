@@ -3,11 +3,11 @@
 import java.util.Dictionary;
 import java.util.Hashtable;
 
-class Workspace.Solution {
+class Solution {
 
     private Dictionary romanToInt;
 
-    public Workspace.Solution() {
+    public Solution() {
         romanToInt = new Hashtable();
         romanToInt.put("I", 1);
         romanToInt.put("V", 5);
@@ -37,12 +37,12 @@ class Workspace.Solution {
 
 // second attempt
 
-class Workspace.Solution {
+class Solution {
 
     private ArrayList<String> symbols;
     private int[] values = {1, 5, 10, 50, 100, 500, 1000};
 
-    public Workspace.Solution() {
+    public Solution() {
         symbols = new ArrayList<String>(Arrays.asList("I", "V", "X", "L", "C", "D", "M"));
     }
 

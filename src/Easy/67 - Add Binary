@@ -1,6 +1,6 @@
 // first attempt
 
-class Workspace.Solution {
+class Solution {
 
     public String addBinary(String a, String b) {
         StringBuilder result = new StringBuilder();
@@ -27,7 +27,7 @@ class Workspace.Solution {
 
 // second attempt
 
-class Workspace.Solution {
+class Solution {
 
     public String addBinary(String a, String b) {
         StringBuilder result = new StringBuilder();

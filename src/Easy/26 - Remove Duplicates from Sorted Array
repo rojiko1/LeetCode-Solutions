@@ -1,6 +1,6 @@
 // first attempt
 
-class Workspace.Solution {
+class Solution {
 
     public int removeDuplicates(int[] nums) {
         int k = nums.length;
@@ -20,7 +20,7 @@ class Workspace.Solution {
 
 // second attempt
 
-class Workspace.Solution {
+class Solution {
 
     public int removeDuplicates(int[] nums) {
         int k = nums.length;
@@ -39,7 +39,7 @@ class Workspace.Solution {
 
 // third attempt
 
-class Workspace.Solution {
+class Solution {
 
     public int removeDuplicates(int[] nums) {
         int k = 1;

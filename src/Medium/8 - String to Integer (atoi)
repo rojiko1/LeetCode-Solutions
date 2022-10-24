@@ -1,4 +1,4 @@
-class Workspace.Solution {
+class Solution {
 
     public int myAtoi(String s) {
         boolean readingStarted = false;

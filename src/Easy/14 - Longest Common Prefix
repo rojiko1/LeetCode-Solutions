@@ -1,6 +1,6 @@
 // first attempt
 
-class Workspace.Solution {
+class Solution {
 
     public String longestCommonPrefix(String[] strs) {
         String prefix = strs[0];
@@ -22,7 +22,7 @@ class Workspace.Solution {
 
 // second attempt
 
-class Workspace.Solution {
+class Solution {
 
     public String longestCommonPrefix(String[] strs) {
         String prefix = strs[0];

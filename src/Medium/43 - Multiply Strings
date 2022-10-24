@@ -1,6 +1,6 @@
 // first attempt
 
-class Workspace.Solution {
+class Solution {
 
 public String multiply(String num1, String num2) {
         StringBuilder result = new StringBuilder();

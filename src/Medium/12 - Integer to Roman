@@ -1,4 +1,4 @@
-class Workspace.Solution {
+class Solution {
 
     public String intToRoman(int num) {
         char[] letters = {'I', 'V', 'X', 'L', 'C', 'D', 'M'};

@@ -1,6 +1,6 @@
 class Solution {
 
-    public ListNode swapPairs(ListNode head) {
+    public Workspace.ListNode swapPairs(Workspace.ListNode head) {
         if (head == null) {
             return head;
         }
@@ -8,7 +8,7 @@ class Solution {
             return head;
         }
         else {
-            ListNode current = head.next;
+            Workspace.ListNode current = head.next;
             head.next = current.next;
             current.next = head;
             head = current;
@@ -18,7 +18,7 @@ class Solution {
                     break;
                 }
                 else {
-                    ListNode after = current.next;
+                    Workspace.ListNode after = current.next;
                     current.next = current.next.next;
                     after.next = current.next.next;
                     current.next.next = after;

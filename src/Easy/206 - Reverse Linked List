@@ -1,4 +1,4 @@
-class Workspace.Solution {
+class Solution {
 
     public Workspace.ListNode deleteDuplicates(Workspace.ListNode head) {
         if (head == null) {

@@ -2,7 +2,7 @@
 
 import java.math.BigInteger;
 
-class Workspace.Solution {
+class Solution {
 
     public Workspace.ListNode addTwoNumbers(Workspace.ListNode l1, Workspace.ListNode l2) {
         BigInteger ten = new BigInteger("10");
@@ -43,7 +43,7 @@ class Workspace.Solution {
 
 // second attempt
 
-class Workspace.Solution {
+class Solution {
 
     public Workspace.ListNode addTwoNumbers(Workspace.ListNode l1, Workspace.ListNode l2) {
         Workspace.ListNode head = new Workspace.ListNode();

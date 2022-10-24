@@ -1,4 +1,4 @@
-class Workspace.Solution {
+class Solution {
 
     public Workspace.ListNode swapPairs(Workspace.ListNode head) {
         if (head == null) {

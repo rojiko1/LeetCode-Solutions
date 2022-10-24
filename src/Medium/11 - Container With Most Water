@@ -1,6 +1,6 @@
 // first attempt
 
-class Workspace.Solution {
+class Solution {
 
     public int maxArea(int[] height) {
         int maxArea = 0;
@@ -23,7 +23,7 @@ class Workspace.Solution {
 
 // second attempt
 
-class Workspace.Solution {
+class Solution {
 
     public int maxArea(int[] height) {
         int left = 0;

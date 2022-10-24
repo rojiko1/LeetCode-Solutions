@@ -1,4 +1,4 @@
-class Workspace.Solution {
+class Solution {
 
     public int lengthOfLastWord(String s) {
         int index = s.length() - 1;

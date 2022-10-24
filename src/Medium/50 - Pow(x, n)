@@ -1,6 +1,6 @@
 // first attempt
 
-class Workspace.Solution {
+class Solution {
 
     public double myPow(double x, int n) {
         double answer = 1.0;
@@ -31,7 +31,7 @@ class Workspace.Solution {
 
 // second attempt
 
-class Workspace.Solution {
+class Solution {
 
     public double myPow(double x, int n) {
         if (x == 0.0) {

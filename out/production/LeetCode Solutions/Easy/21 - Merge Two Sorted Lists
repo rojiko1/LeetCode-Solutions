@@ -1,10 +1,10 @@
 class Solution {
 
-    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-        ListNode l1current = list1;
-        ListNode l2current = list2;
-        ListNode head = new ListNode();
-        ListNode current = head;
+    public Workspace.ListNode mergeTwoLists(Workspace.ListNode list1, Workspace.ListNode list2) {
+        Workspace.ListNode l1current = list1;
+        Workspace.ListNode l2current = list2;
+        Workspace.ListNode head = new Workspace.ListNode();
+        Workspace.ListNode current = head;
         while ((l1current != null) || (l2current != null)) {
             if (l1current == null) {
                 current.next = l2current;

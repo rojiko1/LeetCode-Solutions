@@ -1,7 +1,7 @@
 class Solution {
 
-    public ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode current = head;
+    public Workspace.ListNode removeNthFromEnd(Workspace.ListNode head, int n) {
+        Workspace.ListNode current = head;
         int numNodes = 1;
         while (current.next != null) {
             numNodes++;

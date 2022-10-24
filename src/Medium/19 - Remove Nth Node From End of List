@@ -1,4 +1,4 @@
-class Workspace.Solution {
+class Solution {
 
     public Workspace.ListNode removeNthFromEnd(Workspace.ListNode head, int n) {
         Workspace.ListNode current = head;

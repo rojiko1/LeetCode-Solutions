@@ -1,4 +1,4 @@
-class Workspace.Solution {
+class Solution {
 
     public Workspace.ListNode mergeTwoLists(Workspace.ListNode list1, Workspace.ListNode list2) {
         Workspace.ListNode l1current = list1;
