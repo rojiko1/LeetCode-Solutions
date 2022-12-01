@@ -1,0 +1,24 @@
+class Solution {
+
+    public java.Workspace.ListNode removeNthFromEnd(java.Workspace.ListNode head, int n) {
+        java.Workspace.ListNode current = head;
+        int numNodes = 1;
+        while (current.next != null) {
+            numNodes++;
+            current = current.next;
+        }
+        current = head;
+        if (numNodes - n == 0) {
+            head = head.next;
+            return head;
+        }
+        else {
+            for (int i = 1; i < numNodes - n; i++) {
+                current = current.next;
+            }
+            current.next = current.next.next;
+            return head;
+        }
+    }
+
+}

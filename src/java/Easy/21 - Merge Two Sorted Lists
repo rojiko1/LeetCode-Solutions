@@ -1,0 +1,34 @@
+class Solution {
+
+    public java.Workspace.ListNode mergeTwoLists(java.Workspace.ListNode list1, java.Workspace.ListNode list2) {
+        java.Workspace.ListNode l1current = list1;
+        java.Workspace.ListNode l2current = list2;
+        java.Workspace.ListNode head = new java.Workspace.ListNode();
+        java.Workspace.ListNode current = head;
+        while ((l1current != null) || (l2current != null)) {
+            if (l1current == null) {
+                current.next = l2current;
+                current = current.next;
+                l2current = l2current.next;
+            }
+            else if (l2current == null) {
+                current.next = l1current;
+                current = current.next;
+                l1current = l1current.next;
+            }
+            else if (l1current.val <= l2current.val) {
+                current.next = l1current;
+                current = current.next;
+                l1current = l1current.next;
+            }
+            else {
+                current.next = l2current;
+                current = current.next;
+                l2current = l2current.next;
+            }
+        }
+        head = head.next;
+        return head;
+    }
+
+}

@@ -1,0 +1,47 @@
+class Solution {
+
+    public java.Workspace.ListNode mergeKLists(java.Workspace.ListNode[] lists) {
+        if (lists.length == 0) {
+            return null;
+        }
+        else if (lists.length == 1) {
+            return lists[0];
+        }
+        else {
+            java.Workspace.ListNode left = mergeKLists(Arrays.copyOfRange(lists, 0, lists.length / 2));
+            java.Workspace.ListNode right = mergeKLists(Arrays.copyOfRange(lists, lists.length / 2, lists.length));
+
+            return mergeTwoLists(left, right);
+        }
+    }
+
+    private java.Workspace.ListNode mergeTwoLists(java.Workspace.ListNode first, java.Workspace.ListNode second) {
+        java.Workspace.ListNode head = new java.Workspace.ListNode();
+        java.Workspace.ListNode current = head;
+        while ((first != null) || (second != null)) {
+            if (first == null) {
+                current.next = second;
+                current = current.next;
+                second = second.next;
+            }
+            else if (second == null) {
+                current.next = first;
+                current = current.next;
+                first = first.next;
+            }
+            else if (first.val <= second.val) {
+                current.next = first;
+                current = current.next;
+                first = first.next;
+            }
+            else {
+                current.next = second;
+                current = current.next;
+                second = second.next;
+            }
+        }
+        head = head.next;
+        return head;
+    }
+
+}
