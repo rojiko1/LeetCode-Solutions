@@ -1,4 +1,4 @@
-// first attempt
+// first solution
 
 class Solution {
 
@@ -25,7 +25,7 @@ class Solution {
 
 }
 
-// second attempt
+// second solution
 
 class Solution {
 

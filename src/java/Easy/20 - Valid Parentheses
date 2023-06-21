@@ -1,4 +1,4 @@
-// first attempt
+// first solution
 
 class Solution {
     public boolean isValid(String s) {
@@ -45,7 +45,7 @@ class Solution {
     }
 }
 
-// second attempt
+// second solution
 
 import java.util.ArrayList;
 

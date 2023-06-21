@@ -1,4 +1,4 @@
-// first attempt
+// first solution
 
 class Solution(object):
 
@@ -8,7 +8,7 @@ class Solution(object):
                 if nums[i] + nums[j] == target:
                     return [i, j]
 
-// second attempt
+// second solution
 
 class Solution(object):
 
@@ -49,7 +49,7 @@ class Solution(object):
                 last = mid - 1
         return -1
 
-// third attempt
+// third solution
 
 class Solution(object):
 

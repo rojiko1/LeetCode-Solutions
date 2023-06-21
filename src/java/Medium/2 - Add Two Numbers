@@ -1,4 +1,4 @@
-// first attempt
+// first solution
 
 import java.math.BigInteger;
 
@@ -41,7 +41,7 @@ class Solution {
 
 }
 
-// second attempt
+// second solution
 
 class Solution {
 
