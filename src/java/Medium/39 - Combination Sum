@@ -1,0 +1,27 @@
+class Solution {
+
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        Arrays.sort(candidates);
+        return combinationSum(candidates, target, candidates.length - 1);
+    }
+
+    private List<List<Integer>> combinationSum(int[] candidates, int target, int maxIndex) {
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        for (int i = maxIndex; i >= 0; i--) {
+            if (candidates[i] == target) {
+                List<Integer> newCombo = new ArrayList<Integer>();
+                newCombo.add(target);
+                result.add(newCombo);
+            }
+            else if (candidates[i] <= (target - 2)) {
+                List<List<Integer>> combos = combinationSum(candidates, target - candidates[i], i);
+                for (int j = 0; j < combos.size(); j++) {
+                    combos.get(j).add(candidates[i]);
+                }
+                result.addAll(combos);
+            }
+        }
+        return result;
+    }
+
+}
