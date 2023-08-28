@@ -1,0 +1,56 @@
+class Solution(object):
+
+    validSubstrings = {}
+    sLen = 0
+    maxLen = 0
+
+    def longestValidParentheses(self, s):
+        self.validSubstrings = {}
+        self.sLen = len(s)
+        self.maxLen = 0
+        substringFound = False
+        startI = -1
+        i = 0
+        while True:
+            substringFound = False
+            i = 0
+            startI = -1
+            while i < len(s):
+                if i in self.validSubstrings:
+                    i = self.validSubstrings.get(i)
+                elif s[i] == '(':
+                    startI = i
+                    i += 1
+                else:
+                    if startI != -1:
+                        if (i - startI) != 1:
+                            self.validSubstrings.pop(startI + 1)
+                        self.validSubstrings[startI] = i + 1
+                        substringFound = True
+                        startI = -1
+                    i += 1
+            if substringFound:
+                self.mergeSubstringsAndUpdateMaxLen()
+            else:
+                break
+        print("Returned")
+        return self.maxLen
+
+    def mergeSubstringsAndUpdateMaxLen(self):
+        i = 0
+        endI = 0
+        discovered = 0
+        while (i < self.sLen) and (discovered < len(self.validSubstrings)):
+            if i in self.validSubstrings:
+                if self.validSubstrings.get(i) in self.validSubstrings:
+                    endI = self.validSubstrings.get(i)
+                    self.validSubstrings.pop(i)
+                    self.validSubstrings[i] = self.validSubstrings.get(endI)
+                    self.validSubstrings.pop(endI)
+                    self.maxLen = max(self.maxLen, self.validSubstrings.get(i) - i)
+                else:
+                    discovered += 1
+                    self.maxLen = max(self.maxLen, self.validSubstrings.get(i) - i)
+                    i = self.validSubstrings.get(i)
+            else:
+                i += 1
