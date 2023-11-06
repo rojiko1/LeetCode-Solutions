@@ -1,0 +1,31 @@
+class Solution {
+
+    public List<List<Integer>> permute(int[] nums) {
+        ArrayList<Integer> availableNums = new ArrayList<>();
+        for (int i = 0; i < nums.length; i++) {
+            availableNums.add(nums[i]);
+        }
+        ArrayList<List<Integer>> answer = new ArrayList<>();
+        permute(answer, availableNums, new ArrayList<Integer>());
+        return answer;
+    }
+
+    private void permute(ArrayList<List<Integer>> answer, ArrayList<Integer> available, ArrayList<Integer> currPermutation) {
+        if (available.size() == 0) {
+            ArrayList<Integer> newPermutation = new ArrayList<>();
+            newPermutation.addAll(currPermutation);
+            answer.add(newPermutation);
+        }
+        else {
+            int availableSize = available.size();
+            for (int i = 0; i < availableSize; i++) {
+                currPermutation.add(available.get(0));
+                available.remove(0);
+                permute(answer, available, currPermutation);
+                available.add(currPermutation.get(currPermutation.size() - 1));
+                currPermutation.remove(currPermutation.size() - 1);
+            }
+        }
+    }
+
+}
