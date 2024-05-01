@@ -1,0 +1,32 @@
+class Solution {
+
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+
+        ArrayList<TreeNode> curr = new ArrayList<>();
+        curr.add(root);
+
+        ArrayList<TreeNode> next = new ArrayList<>();
+
+        while (curr.size() != 0) {
+            ArrayList<Integer> layer = new ArrayList<>();
+            for (int i = 0; i < curr.size(); i++) {
+                if (curr.get(i).left != null) {
+                    next.add(curr.get(i).left);
+                }
+                if (curr.get(i).right != null) {
+                    next.add(curr.get(i).right);
+                }
+                layer.add(curr.get(i).val);
+            }
+            result.add(layer);
+            curr = next;
+            next = new ArrayList<>();
+        }
+        return result;
+    }
+
+}

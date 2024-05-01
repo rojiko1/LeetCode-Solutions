@@ -1,0 +1,33 @@
+class Solution {
+
+    public int[][] merge(int[][] intervals) {
+        ArrayList<ArrayList<Integer>> mergedIntervals = new ArrayList<>();
+        Arrays.sort(intervals, new Comparator<int[]>() {
+            public int compare(int[] a1, int[] a2) {
+                return a1[0] - a2[0];
+            }
+        });
+        ArrayList<Integer> currInterval = new ArrayList<>();
+        currInterval.add(intervals[0][0]);
+        currInterval.add(intervals[0][1]);
+        for (int i = 1; i < intervals.length; i++) {
+            if (intervals[i][0] > currInterval.get(1)) {
+                mergedIntervals.add(currInterval);
+                currInterval = new ArrayList<Integer>();
+                currInterval.add(intervals[i][0]);
+                currInterval.add(intervals[i][1]);
+            }
+            else {
+                currInterval.set(1, Math.max(currInterval.get(1), intervals[i][1]));
+            }
+        }
+        mergedIntervals.add(currInterval);
+        int[][] result = new int[mergedIntervals.size()][2];
+        for (int i = 0; i < mergedIntervals.size(); i++) {
+            result[i][0] = mergedIntervals.get(i).get(0);
+            result[i][1] = mergedIntervals.get(i).get(1);
+        }
+        return result;
+    }
+
+}
