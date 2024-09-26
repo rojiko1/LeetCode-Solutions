@@ -1,0 +1,61 @@
+// first solution
+
+class Solution {
+
+    public int jump(int[] nums) {
+        return jump(nums, 0);
+    }
+
+    private int jump(int[] nums, int startIndex) {
+        if (startIndex == (nums.length - 1)) {
+            return 0;
+        }
+        else if (nums[startIndex] == 0) {
+            return Integer.MAX_VALUE;
+        }
+        else {
+            int minJumps = Integer.MAX_VALUE;
+            for (int i = Math.min(nums[startIndex], nums.length - startIndex - 1); i > 0; i--) {
+                int testJumps = jump(nums, startIndex + i);
+                if (testJumps < minJumps) {
+                    minJumps = testJumps;
+                }
+            }
+            if (minJumps == Integer.MAX_VALUE) {
+                return minJumps;
+            }
+            else {
+                return minJumps + 1;
+            }
+        }
+    }
+
+}
+
+// second solution
+
+class Solution {
+
+    public int jump(int[] nums) {
+        if (nums.length == 1) {return 0;}
+        else if (nums[0] >= (nums.length - 1)) {return 1;}
+        else {return jump(nums, 0, 1);}
+    }
+
+    private int jump(int[] nums, int startIndex, int minRange) {
+        int bestIndex = 0;
+        int longestRange = 0;
+        for (int i = Math.min(startIndex + nums[startIndex], nums.length - 1); i >= minRange; i--) {
+            int testRange = i + nums[i];
+            if (testRange >= nums.length - 1) {
+                return 2;
+            }
+            else if (testRange > longestRange) {
+                longestRange = testRange;
+                bestIndex = i;
+            }
+        }
+        return 1 + jump(nums, bestIndex, startIndex + nums[startIndex] + 1);
+    }
+
+}

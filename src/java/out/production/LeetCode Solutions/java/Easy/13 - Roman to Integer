@@ -1,0 +1,64 @@
+// first solution
+
+import java.util.Dictionary;
+import java.util.Hashtable;
+
+class Solution {
+
+    private Dictionary romanToInt;
+
+    public Solution() {
+        romanToInt = new Hashtable();
+        romanToInt.put("I", 1);
+        romanToInt.put("V", 5);
+        romanToInt.put("X", 10);
+        romanToInt.put("L", 50);
+        romanToInt.put("C", 100);
+        romanToInt.put("D", 500);
+        romanToInt.put("M", 1000);
+    }
+
+    public int romanToInt(String s) {
+        int sum = 0;
+        for (int i = 0; i < s.length() - 1; i++) { //first s.length()-1 characters
+            int firstVal = (int) romanToInt.get(s.substring(i, i+1));
+            int secondVal = (int) romanToInt.get(s.substring(i+1, i+2));
+            if (firstVal < secondVal) {
+                sum -= firstVal;
+            } else {
+                sum += firstVal;
+            }
+        }
+        sum += (int) romanToInt.get(s.substring(s.length() - 1, s.length())); //last character
+        return sum;
+    }
+    
+}
+
+// second solution
+
+class Solution {
+
+    private ArrayList<String> symbols;
+    private int[] values = {1, 5, 10, 50, 100, 500, 1000};
+
+    public Solution() {
+        symbols = new ArrayList<String>(Arrays.asList("I", "V", "X", "L", "C", "D", "M"));
+    }
+
+    public int romanToInt(String s) {
+        int sum = 0;
+        for (int i = 0; i < s.length() - 1; i++) { //first s.length()-1 characters
+            int firstVal = values[symbols.indexOf(s.substring(i, i+1))];
+            int secondVal = values[symbols.indexOf(s.substring(i+1, i+2))];
+            if (firstVal < secondVal) {
+                sum -= firstVal;
+            } else {
+                sum += firstVal;
+            }
+        }
+        sum += values[symbols.indexOf(s.substring(s.length()-1, s.length()))]; //last character
+        return sum;
+    }
+
+}

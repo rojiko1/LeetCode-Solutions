@@ -1,0 +1,24 @@
+class Solution {
+
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, List<String>> groups = new HashMap<>();
+        List<List<String>> groupedAnagrams = new ArrayList<>();
+        for (String s : strs) {
+            String count = Arrays.toString(getCount(s));
+            if (groups.containsKey(count)) {
+                List<String> val = groups.get(count);
+                List<String> newVals = new ArrayList<>(val);
+                newVals.add(s);
+                groups.replace(count, newVals);
+            }
+            else {
+                groups.put(count, List.of(s));
+            }
+        }
+        for (Map.Entry<String, List<String>> e : groups.entrySet()) {
+            groupedAnagrams.add(e.getValue());
+        }
+        return groupedAnagrams;
+    }
+
+}

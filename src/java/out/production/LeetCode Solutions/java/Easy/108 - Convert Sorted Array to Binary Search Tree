@@ -1,0 +1,22 @@
+class Solution {
+
+    private static int[] nums;
+
+    public TreeNode sortedArrayToBST(int[] nums) {
+        this.nums = nums;
+        return arrToSubTree(0, nums.length - 1);
+    }
+
+    private TreeNode arrToSubTree(int left, int right) {
+        if (left <= right) {
+            int middle = (left + right) / 2;
+            return new TreeNode(this.nums[middle],
+                        arrToSubTree(left, middle - 1),
+                        arrToSubTree(middle + 1, right));
+        }
+        else {
+            return null;
+        }
+    }
+
+}

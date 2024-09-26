@@ -1,0 +1,17 @@
+class Solution {
+
+    public boolean isPalindrome(int x) {
+        String stringifiedX = String.valueOf(x);
+        int frontIndex = 0;
+        int backIndex = stringifiedX.length() - 1;
+        while (frontIndex < backIndex) {
+            if (stringifiedX.charAt(frontIndex) != stringifiedX.charAt(backIndex)) {
+                return false;
+            }
+            frontIndex++;
+            backIndex--;
+        }
+        return true;
+    }
+
+}

@@ -1,0 +1,55 @@
+// first solution
+
+class Solution {
+
+    public String countAndSay(int n) {
+        if (n == 1) {
+            return "1";
+        }
+        else {
+            String toSay = countAndSay(n - 1);
+            String said = "";
+            int count = 1;
+            for (int i = 1; i < toSay.length(); i++) {
+                if (toSay.charAt(i) == toSay.charAt(i - 1)) {
+                    count++;
+                }
+                else {
+                    said = said + Integer.toString(count) + toSay.charAt(i - 1);
+                    count = 1;
+                }
+            }
+            said = said + Integer.toString(count) + toSay.charAt(toSay.length() - 1);
+            return said;
+        }
+    }
+
+}
+
+// second solution
+
+class Solution {
+
+    public String countAndSay(int n) {
+        String sequence = "1";
+        for (int i = 2; i <= n; i++) {
+            StringBuilder said = new StringBuilder("");
+            int count = 1;
+            for (int j = 1; j < sequence.length(); j++) {
+                if (sequence.charAt(j) == sequence.charAt(j - 1)) {
+                    count++;
+                }
+                else {
+                    said.append(count);
+                    said.append(sequence.charAt(j - 1));
+                    count = 1;
+                }
+            }
+            said.append(count);
+            said.append(sequence.charAt(sequence.length() - 1));
+            sequence = String.valueOf(said);
+        }
+        return sequence;
+    }
+
+}

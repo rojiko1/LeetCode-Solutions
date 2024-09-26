@@ -1,0 +1,62 @@
+// first attempt
+
+class Solution {
+
+    public void setZeroes(int[][] matrix) {
+        HashMap<Integer, Boolean> rows = new HashMap<>();
+        HashMap<Integer, Boolean> cols = new HashMap<>();
+        for (int r = 0; r < matrix.length; r++) {
+            for (int c = 0; c < matrix[0].length; c++) {
+                if (matrix[r][c] == 0) {
+                    if (!rows.containsKey(r)) {
+                        rows.put(r, true);
+                    }
+                    if (!cols.containsKey(c)) {
+                        cols.put(c, true);
+                    }
+                }
+            }
+        }
+        for (Integer row : rows.keySet()) {
+            for (int i = 0; i < matrix[0].length; i++) {
+                matrix[row][i] = 0;
+            }
+        }
+        for (Integer col : cols.keySet()) {
+            for (int i = 0; i < matrix.length; i++) {
+                matrix[i][col] = 0;
+            }
+        }
+    }
+
+}
+
+// second attempt
+
+class Solution {
+
+    public void setZeroes(int[][] matrix) {
+        HashMap<Integer, Boolean> rows = new HashMap<>();
+        HashMap<Integer, Boolean> cols = new HashMap<>();
+        for (int r = 0; r < matrix.length; r++) {
+            for (int c = 0; c < matrix[0].length; c++) {
+                if (matrix[r][c] == 0) {
+                    if (!rows.containsKey(r)) {
+                        rows.put(r, true);
+                    }
+                    if (!cols.containsKey(c)) {
+                        cols.put(c, true);
+                    }
+                }
+            }
+        }
+        for (int r = 0; r < matrix.length; r++) {
+            for (int c = 0; c < matrix[0].length; c++) {
+                if (rows.containsKey(r) || cols.containsKey(c)) {
+                    matrix[r][c] = 0;
+                }
+            }
+        }
+    }
+
+}

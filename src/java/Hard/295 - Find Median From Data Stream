@@ -1,0 +1,95 @@
+// first attempt
+
+class MedianFinder {
+
+    ArrayList<Integer> first;
+    ArrayList<Integer> second;
+
+    public MedianFinder() {
+        first = new ArrayList<>();
+        second = new ArrayList<>();
+    }
+
+    public void addNum(int num) {
+        second.add(num);
+    }
+
+    public double findMedian() {
+        if (!second.isEmpty()) {
+            Collections.sort(second);
+            merge();
+            second.clear();
+        }
+        if (first.size() % 2 == 1) {
+            return first.get(first.size() / 2);
+        }
+        else {
+            return (first.get(first.size() / 2) + first.get(first.size() / 2 - 1)) / 2.0;
+        }
+    }
+
+    private void merge() {
+        if (first.isEmpty()) {
+            first.addAll(second);
+        }
+        else {
+            int firstPtr = 0;
+            int secondPtr = 0;
+            while (secondPtr < second.size()) {
+                if (firstPtr == first.size()) {
+                    first.add(second.get(secondPtr));
+                    secondPtr++;
+                }
+                else if (second.get(secondPtr) <= first.get(firstPtr)) {
+                    first.add(firstPtr, second.get(secondPtr));
+                    firstPtr += 2;
+                    secondPtr++;
+                }
+                else {
+                    firstPtr++;
+                }
+            }
+        }
+    }
+
+}
+
+// second attempt
+
+class MedianFinder {
+
+    PriorityQueue<Integer> left;
+    PriorityQueue<Integer> right;
+
+    public MedianFinder() {
+        left = new PriorityQueue<>(Comparator.reverseOrder());
+        right = new PriorityQueue<>();
+    }
+
+    public void addNum(int num) {
+        if (left.isEmpty() || (num <= left.peek())) {
+            left.add(num);
+        }
+        else {
+            right.add(num);
+        }
+        if (left.size() > (right.size() + 1)) {
+            int numToMove = left.remove();
+            right.add(numToMove);
+        }
+        else if (right.size() > left.size()) {
+            int numToMove = right.remove();
+            left.add(numToMove);
+        }
+    }
+
+    public double findMedian() {
+        if (left.size() > right.size()) {
+            return left.peek();
+        }
+        else {
+            return (left.peek() + right.peek()) / 2.0;
+        }
+    }
+
+}

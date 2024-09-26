@@ -1,0 +1,31 @@
+class Solution {
+
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        if (preorder.length == 0) {return null;}
+        else {
+            HashMap<Integer, Integer> valToI = new HashMap<>();
+            for (int i = 0; i < inorder.length; i++) {
+                valToI.put(inorder[i], i);
+            }
+            TreeNode root = new TreeNode(preorder[0]);
+            buildTree(root, valToI, preorder, inorder, 1, 0, inorder.length - 1);
+            return root;
+        }
+    }
+
+    private int buildTree(TreeNode curr, HashMap<Integer, Integer> valToI, int[] preorder, int[] inorder, int i, int min, int max) {
+        int nextI = i;
+        if (nextI >= preorder.length) {return nextI;}
+        if ((valToI.get(preorder[nextI]) < valToI.get(curr.val)) && (valToI.get(preorder[nextI]) >= min)) {
+            curr.left = new TreeNode(preorder[nextI]);
+            nextI = buildTree(curr.left, valToI, preorder, inorder, nextI + 1, min, valToI.get(curr.val) - 1);
+        }
+        if (nextI >= preorder.length) {return nextI;}
+        if ((valToI.get(preorder[nextI]) > valToI.get(curr.val)) && (valToI.get(preorder[nextI]) <= max)) {
+            curr.right = new TreeNode(preorder[nextI]);
+            nextI = buildTree(curr.right, valToI, preorder, inorder, nextI + 1, valToI.get(curr.val) + 1, max);
+        }
+        return nextI;
+    }
+
+}

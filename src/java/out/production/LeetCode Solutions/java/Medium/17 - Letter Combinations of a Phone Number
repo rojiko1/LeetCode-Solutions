@@ -1,0 +1,89 @@
+class Solution {
+
+    char[] twoLetters = {'a', 'b', 'c'};
+    char[] threeLetters = {'d', 'e', 'f'};
+    char[] fourLetters = {'g', 'h', 'i'};
+    char[] fiveLetters = {'j', 'k', 'l'};
+    char[] sixLetters = {'m', 'n', 'o'};
+    char[] sevenLetters = {'p', 'q', 'r', 's'};
+    char[] eightLetters = {'t', 'u', 'v'};
+    char[] nineLetters = {'w', 'x', 'y', 'z'};
+
+    public List<String> letterCombinations(String digits) {
+        // if digits has length 0 - special case
+        List<String> result = new ArrayList<String>();
+        if (digits.length() == 0) {
+            return result;
+        }
+        char[] currLetters = {};
+        int length = 1;
+        // find length
+        for (int p = 0; p < digits.length(); p++) {
+            if ((digits.charAt(p) == '7') || (digits.charAt(p) == '9')) {
+                length = length * 4;
+            }
+            else {
+                length = length * 3;
+            }
+            System.out.println(length);
+        }
+        // for each digit,
+        for (int i = 0; i < digits.length(); i++) {
+            // identify set of letters
+            switch (digits.charAt(i)) {
+                case '2':
+                    currLetters = twoLetters;
+                    break;
+                case '3':
+                    currLetters = threeLetters;
+                    break;
+                case '4':
+                    currLetters = fourLetters;
+                    break;
+                case '5':
+                    currLetters = fiveLetters;
+                    break;
+                case '6':
+                    currLetters = sixLetters;
+                    break;
+                case '7':
+                    currLetters = sevenLetters;
+                    break;
+                case '8':
+                    currLetters = eightLetters;
+                    break;
+                case '9':
+                    currLetters = nineLetters;
+                    break;
+            }
+            // if first digit, build array
+            if (i == 0) {
+                for (int m = 0; m < currLetters.length; m++) {
+                    for (int n = 0; n < length / currLetters.length; n++) {
+                        result.add(new String(String.valueOf(currLetters[m])));
+                    }
+                }
+                length = length / currLetters.length;
+            }
+            // otherwise, insert the next letters
+            else {
+                insertNextChars(result, currLetters, length);
+                length = length / currLetters.length;
+            }
+        }
+        return result;
+    }
+
+    void insertNextChars(List<String> list, char[] currLetters, int length) {
+        for (int i = 0; i < currLetters.length; i++) {
+            int index = (length / currLetters.length) * i;
+            while (index < list.size()) {
+                for (int j = 0; j < (length / currLetters.length); j++) {
+                    list.set(index + j, list.get(index + j) + (currLetters[i]));
+                }
+                index += length;
+            }
+        }
+    }
+
+}

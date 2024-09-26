@@ -1,0 +1,45 @@
+class Solution {
+
+    private final int[][] DIRECTIONS = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+
+    public boolean exist(char[][] board, String word) {
+        HashMap<Integer, Boolean> visited = new HashMap<>();
+        for (int r = 0; r < board.length; r++) {
+            for (int c = 0; c < board[0].length; c++) {
+                if (search(board, word, 0, r, c, visited)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean search(char[][] board, String word, int i, int r, int c, HashMap<Integer, Boolean> visited) {
+        if (board[r][c] == word.charAt(i)) {
+            if (i == (word.length() - 1)) {return true;}
+            visited.put(coordToVal(r, c, board[0].length), true);
+            for (int j = 0; j < DIRECTIONS.length; j++) {
+                if (inBounds(r + DIRECTIONS[j][0], c + DIRECTIONS[j][1], board.length, board[0].length) &&
+                    !visited.containsKey(coordToVal(r + DIRECTIONS[j][0], c + DIRECTIONS[j][1], board[0].length))) {
+                    if (search(board, word, i + 1, r + DIRECTIONS[j][0], c + DIRECTIONS[j][1], visited)) {
+                        return true;
+                    }
+                }
+            }
+            visited.remove(coordToVal(r, c, board[0].length));
+            return false;
+        }
+        else {
+            return false;
+        }
+    }
+
+    private int coordToVal(int r, int c, int n) {
+        return r * n + c;
+    }
+
+    private boolean inBounds(int r, int c, int m, int n) {
+        return (r >= 0) && (r < m) && (c >= 0) && (c < n);
+    }
+
+}

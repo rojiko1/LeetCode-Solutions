@@ -1,0 +1,29 @@
+class Solution {
+
+    public String convert(String s, int numRows) {
+        if (numRows == 1) {
+            return s;
+        }
+        else {
+            StringBuilder newString = new StringBuilder();
+            int jumpConst = (2*numRows) - 2;
+            int jump;
+            for (int i = 1; i <= numRows; i++) {
+                if ((i == 1) || (i == numRows)) {
+                    for(int j = i; j <= s.length(); j += jumpConst) {
+                        newString.append(s.charAt(j - 1));
+                    }
+                }
+                else {
+                    jump = 2 * (i - 1);
+                    for (int j = i; j <= s.length(); j += jump) {
+                        newString.append(s.charAt(j - 1));
+                        jump = jumpConst - jump;
+                    }
+                }
+            }
+            return newString.toString();
+        }
+    }
+
+}

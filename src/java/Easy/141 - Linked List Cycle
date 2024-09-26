@@ -1,0 +1,38 @@
+// first attempt
+
+public class Solution {
+
+    public boolean hasCycle(ListNode head) {
+        if (head == null) {return false;}
+        Set<ListNode> set = new HashSet<>();
+        while (head.next != null) {
+            if (set.contains(head.next)) {
+                return true;
+            }
+            set.add(head.next);
+            head = head.next;
+        }
+        return false;
+    }
+
+}
+
+// second attempt
+
+public class Solution {
+
+    public boolean hasCycle(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        if (head == null) {return false;}
+        while ((fast.next != null) && (fast.next.next != null)) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+}

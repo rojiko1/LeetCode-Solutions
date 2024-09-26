@@ -1,0 +1,32 @@
+class Solution {
+
+    public int largestRectangleArea(int[] heights) {
+        int[] farthestLeft = new int[heights.length];
+        int[] farthestRight = new int[heights.length];
+
+        farthestLeft[0] = -1;
+        for (int i = 1; i < heights.length; i++) {
+            int curr = i - 1;
+            while ((farthestLeft[curr] > -1) && (heights[i] <= heights[curr])) {
+                curr = farthestLeft[curr];
+            }
+            farthestLeft[i] = (heights[i] > heights[curr]) ? curr : -1;
+        }
+
+        farthestRight[heights.length - 1] = heights.length;
+        for (int i = heights.length - 2; i >= 0; i--) {
+            int curr = i + 1;
+            while ((farthestRight[curr] < heights.length) && (heights[i] <= heights[curr])) {
+                curr = farthestRight[curr];
+            }
+            farthestRight[i] = (heights[i] > heights[curr]) ? curr : heights.length;
+        }
+
+        int max = 0;
+        for (int i = 0; i < heights.length; i++) {
+            max = Math.max(max, heights[i] * (farthestRight[i] - farthestLeft[i] - 1));
+        }
+        return max;
+    }
+
+}

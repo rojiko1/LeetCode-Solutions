@@ -1,0 +1,71 @@
+// first solution
+
+class Solution {
+
+    public int[] twoSum(int[] nums, int target) {
+        for (int i = 0; i < nums.length - 1; i ++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[i] + nums[j] == target) {
+                    int[] indices = {i, j};
+                    return indices;
+                }
+            }
+        }
+        return new int[]{};
+    }
+
+}
+
+// second solution
+
+class Solution {
+
+    public int[] twoSum(int[] nums, int target) {
+        int[] numbers = Arrays.copyOf(nums, nums.length);
+        int firstNum = 0;
+        int secondNum = 0;
+        int firstIndex = -1;
+        int secondIndex = -1;
+        Arrays.sort(numbers);
+        for (int i=0; i < numbers.length; i++) {
+            int complementIndex = Arrays.binarySearch(numbers, target - numbers[i]);
+            if ((complementIndex >= 0) && (complementIndex != i)) {
+                firstNum = numbers[i];
+                secondNum = numbers[complementIndex];
+                break;
+            }
+        }
+        boolean firstIndexFound = false;
+        boolean secondIndexFound = false;
+        for (int i=0; i < nums.length; i++) {
+            if ((nums[i] == firstNum) && !firstIndexFound) {
+                firstIndex = i;
+                firstIndexFound = true;
+            }
+            else if ((nums[i] == secondNum) && !secondIndexFound) {
+                secondIndex = i;
+                secondIndexFound = true;
+            }
+            if (firstIndexFound && secondIndexFound) {break;}
+        }
+        return new int[]{firstIndex, secondIndex};
+    }
+
+}
+
+// third solution
+
+class Solution {
+
+    public int[] twoSum(int[] nums, int target) {
+        HashMap<Integer, Integer> complements = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (complements.get(target - nums[i]) != null) {
+                return new int[] {complements.get(target - nums[i]), i};
+            }
+            complements.put(nums[i], i);
+        }
+        return new int[0];
+    }
+
+}

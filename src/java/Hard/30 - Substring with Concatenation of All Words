@@ -1,0 +1,123 @@
+// first attempt
+
+class Solution {
+
+    public List<Integer> findSubstring(String s, String[] words) {
+        List<Integer> indices = new ArrayList<>();
+        HashMap<String, Integer> wordsAsMap = new HashMap<>();
+        int minLength = Integer.MAX_VALUE;
+        int maxLength = Integer.MIN_VALUE;
+        for (String word : words) {
+            minLength = Math.min(minLength, word.length());
+            maxLength = Math.max(maxLength, word.length());
+            insert(wordsAsMap, word);
+        }
+        for (int i = 0; i <= s.length() - minLength; i++) {
+            if (startsConcat(s, i, wordsAsMap, minLength, maxLength)) {
+                indices.add(i);
+            }
+        }
+        return indices;
+    }
+
+    private boolean startsConcat(String s, int i, HashMap<String, Integer> words, int minLength, int maxLength) {
+        // System.out.println("startsConcat " + i + " " + words);
+        if (words.size() == 0) {return true;}
+        for (int j = i + minLength; j <= Math.min(s.length(), i + maxLength); j++) {
+            if (words.containsKey(s.substring(i, j))) {
+                remove(words, s.substring(i, j));
+                boolean startsConcat = startsConcat(s, j, words, minLength, maxLength);
+                insert(words, s.substring(i, j));
+                if (startsConcat) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private void insert(HashMap<String, Integer> map, String word) {
+        if (!map.containsKey(word)) {
+            map.put(word, 1);
+        }
+        else {
+            map.replace(word, map.get(word) + 1);
+        }
+    }
+
+    private void remove(HashMap<String, Integer> map, String word) {
+        if (map.get(word) == 1) {
+            map.remove(word);
+        }
+        else {
+            map.replace(word, map.get(word) - 1);
+        }
+    }
+
+}
+
+// second attempt
+
+class Solution {
+
+    public List<Integer> findSubstring(String s, String[] words) {
+        List<Integer> indices = new ArrayList<>();
+        HashMap<String, Integer> wordsAsMap = new HashMap<>();
+        int len = words[0].length();
+        int totalLen = len * words.length;
+        if (s.length() < totalLen) {
+            return indices;
+        }
+        for (String word : words) {
+            insert(wordsAsMap, word);
+        }
+        for (int i = 0; i < Math.min(len, s.length() - totalLen + 1); i++) {
+            HashMap<String, Integer> remaining = calibrate(wordsAsMap, s, i, len, totalLen);
+            insert(remaining, s.substring(i + totalLen - len, i + totalLen));
+            // System.out.println(remaining);
+            for (int j = i; j <= s.length() - totalLen; j += len) {
+                remove(remaining, s.substring(j + totalLen - len, j + totalLen));
+                // System.out.println(remaining);
+                if (remaining.isEmpty()) {
+                    indices.add(j);
+                }
+                insert(remaining, s.substring(j, j + len));
+                // System.out.println(remaining);
+            }
+        }
+        return indices;
+    }
+
+    private HashMap<String, Integer> calibrate(HashMap<String, Integer> words, String s, int index, int len, int totalLen) {
+        HashMap<String, Integer> starting = new HashMap<>(words);
+        for (int i = index; i < index + totalLen; i += len) {
+            remove(starting, s.substring(i, i + len));
+        }
+        return starting;
+    }
+
+    private void insert(HashMap<String, Integer> map, String word) {
+        if (!map.containsKey(word)) {
+            map.put(word, 1);
+        }
+        else if (map.get(word) == -1) {
+            map.remove(word);
+        }
+        else {
+            map.replace(word, map.get(word) + 1);
+        }
+    }
+
+    private void remove(HashMap<String, Integer> map, String word) {
+        if (!map.containsKey(word)) {
+            map.put(word, -1);
+        }
+        else if (map.get(word) == 1) {
+            map.remove(word);
+        }
+        else {
+            map.replace(word, map.get(word) - 1);
+        }
+    }
+
+}

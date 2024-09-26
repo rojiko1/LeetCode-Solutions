@@ -1,0 +1,79 @@
+// first solution
+
+class Solution {
+    public boolean isValid(String s) {
+        int roundCount = 0;
+        int curlyCount = 0;
+        int squareCount = 0;
+        String stack = "";
+        for (int i=0; i < s.length(); i++) {
+            char character = s.charAt(i);
+            if (character == '(') {
+                roundCount++;
+                stack = stack + "(";
+            } else if (character == ')') {
+                roundCount--;
+                if (roundCount < 0) {return false;}
+                int last_index = stack.length() - 1;
+                if (stack.charAt(last_index) == '(') {
+                    stack = stack.substring(0, last_index);
+                } else {return false;}
+            } else if (character == '{') {
+                curlyCount++;
+                stack = stack + "{";
+            } else if (character == '}') {
+                curlyCount--;
+                if (curlyCount < 0) {return false;}
+                int last_index = stack.length() - 1;
+                if (stack.charAt(last_index) == '{') {
+                    stack = stack.substring(0, last_index);
+                } else {return false;}
+            } else if (character == '[') {
+                squareCount++;
+                stack = stack + "[";
+            } else {
+                squareCount--;
+                if (squareCount < 0) {return false;}
+                int last_index = stack.length() - 1;
+                if (stack.charAt(last_index) == '[') {
+                    stack = stack.substring(0, last_index);
+                } else {return false;}
+            }
+        }
+        if ((roundCount == 0) && (curlyCount == 0) && (squareCount == 0)) {return true;}
+        else {return false;}
+    }
+}
+
+// second solution
+
+import java.util.ArrayList;
+
+class Solution {
+    public boolean isValid(String s) {
+        ArrayList<String> stack = new ArrayList<String>();
+        for (int i=0; i < s.length(); i++) {
+            char character = s.charAt(i);
+            if ((character == '(') || (character == '{') || (character == '[')){
+                stack.add(String.valueOf(character));
+            } else {
+                int stack_size = stack.size();
+                if (stack_size > 0) {
+                    String lastElement = stack.get(stack_size - 1);
+                    if (character == ')') {
+                        if (lastElement.equals("(")) {stack.remove(stack_size - 1);}
+                        else {return false;}
+                    } else if (character == '}') {
+                        if (lastElement.equals("{")) {stack.remove(stack_size - 1);}
+                        else {return false;}
+                    } else if (character == ']') {
+                        if (lastElement.equals("[")) {stack.remove(stack_size - 1);}
+                        else {return false;}
+                    }
+                } else {return false;}
+            }
+        }
+        if (stack.size() == 0) {return true;}
+        else {return false;}
+    }
+}

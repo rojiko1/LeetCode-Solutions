@@ -1,0 +1,39 @@
+class Solution {
+
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        Arrays.sort(candidates);
+        if (candidates[0] > target) {return new ArrayList<List<Integer>>();}
+        else if (candidates[0] == target) {
+            List<List<Integer>> combo = new ArrayList<List<Integer>>();
+            ArrayList<Integer> onlyCombo = new ArrayList<Integer>();
+            onlyCombo.add(candidates[0]);
+            combo.add(onlyCombo);
+            return combo;
+        }
+        return combinationsForSum(candidates, target, candidates.length - 1);
+    }
+
+    private List<List<Integer>> combinationsForSum(int[] candidates, int target, int startI) {
+        List<List<Integer>> combos = new ArrayList<List<Integer>>();
+        int lastNum = -1;
+        for (int i = startI; i >= 0; i--) {
+            if (candidates[i] != lastNum) {
+                if (candidates[i] == target) {
+                    ArrayList<Integer> newElement = new ArrayList<>();
+                    newElement.add(candidates[i]);
+                    combos.add(newElement);
+                }
+                else if (candidates[i] < target) {
+                    List<List<Integer>> newCombos = combinationsForSum(candidates, target - candidates[i], i - 1);
+                    for (List<Integer> combo : newCombos) {
+                        combo.add(candidates[i]);
+                        combos.add(combo);
+                    }
+                }
+            }
+            lastNum = candidates[i];
+        }
+        return combos;
+    }
+
+}

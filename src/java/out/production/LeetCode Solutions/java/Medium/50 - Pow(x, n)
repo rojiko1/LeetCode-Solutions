@@ -1,0 +1,65 @@
+// first solution
+
+class Solution {
+
+    public double myPow(double x, int n) {
+        double answer = 1.0;
+        if (x == 0.0) {return 0.0;}
+        else if (x == 1.0) {return 1.0;}
+        else if (n == 0) {return 1.0;}
+        else if (n > 0) {
+            int current = 1;
+            answer = x;
+            while (current * 2 <= n) {
+                current *= 2;
+                answer *= answer;
+            }
+            return answer * myPow(x, n - current);
+        }
+        else {
+            int current = -1;
+            answer = 1 / x;
+            while (current * 2 >= n) {
+                current *= 2;
+                answer /= answer;
+            }
+            return answer * myPow(x, n - current);
+        }
+    }
+
+}
+
+// second solution
+
+class Solution {
+
+    public double myPow(double x, int n) {
+        if (x == 0.0) {
+            return 0.0;
+        }
+        else if (x == 1.0) {
+            return 1.0;
+        }
+        if (n < 0) {
+            x = 1.0 / x;
+            n *= -1;
+        }
+        return getPow(x, n);
+    }
+
+    private double getPow(double x, int n) {
+        if (n == 0) {
+            return 1.0;
+        }
+        else {
+            double half_power = getPow(x, n / 2);
+            if (n % 2 == 0) {
+                return half_power * half_power;
+            }
+            else {
+                return half_power * half_power * x;
+            }
+        }
+    }
+
+}

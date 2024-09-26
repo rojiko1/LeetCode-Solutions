@@ -1,0 +1,47 @@
+class Solution {
+
+    public boolean isValidSudoku(char[][] board) {
+        for (int i = 0; i < 9; i++) {
+            boolean[] numsContained = {false, false, false, false, false, false, false, false, false};
+            for (int j = 0; j < 9; j++) {
+                char character = board[i][j];
+                if (Character.isDigit(character)) {
+                    if (!numsContained[Character.getNumericValue(character) - 1]) {
+                        numsContained[Character.getNumericValue(character) - 1] = true;
+                    }
+                    else {return false;}
+                }
+            }
+        }
+        for (int i = 0; i < 9; i++) {
+            boolean[] numsContained = {false, false, false, false, false, false, false, false, false};
+            for (int j = 0; j < 9; j++) {
+                char character = board[j][i];
+                if (Character.isDigit(character)) {
+                    if (!numsContained[Character.getNumericValue(character) - 1]) {
+                        numsContained[Character.getNumericValue(character) - 1] = true;
+                    }
+                    else {return false;}
+                }
+            }
+        }
+        for (int i = 0; i < 9; i += 3) {
+            for (int j = 0; j < 9; j += 3) {
+                boolean[] numsContained = {false, false, false, false, false, false, false, false, false};
+                for (int k = i; k < i + 3; k++) {
+                    for (int l = j; l < j + 3; l++) {
+                        char character = board[k][l];
+                        if (Character.isDigit(character)) {
+                            if (!numsContained[Character.getNumericValue(character) - 1]) {
+                                numsContained[Character.getNumericValue(character) - 1] = true;
+                            }
+                            else {return false;}
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+}

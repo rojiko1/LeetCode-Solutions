@@ -1,4 +1,4 @@
-package java.Workspace;
+package Workspace;
 
 public class ListNode {
     int val;

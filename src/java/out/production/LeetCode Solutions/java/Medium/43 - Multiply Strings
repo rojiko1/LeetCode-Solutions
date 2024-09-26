@@ -1,0 +1,50 @@
+// first solution
+
+class Solution {
+
+public String multiply(String num1, String num2) {
+        StringBuilder result = new StringBuilder();
+        for (int i = num1.length() - 1; i >= 0; i--) {
+            StringBuilder layer = new StringBuilder();
+            int carry = 0;
+            for (int k = 0; k < ((num1.length() - 1) - i); k++) {
+                layer.append("0");
+            }
+            for (int j = num2.length() - 1; j >= 0; j--) {
+                int mult = (Character.getNumericValue(num1.charAt(i)) * Character.getNumericValue(num2.charAt(j))) + carry;
+                layer.append((mult % 10));
+                carry = mult / 10;
+            }
+            if (carry != 0) {
+                layer.append(carry);
+            }
+            result = add(layer, result);
+        }
+        while ((result.charAt(result.length() - 1) == '0') && (result.length() > 1)) {
+            result.deleteCharAt(result.length() - 1);
+        }
+        return result.reverse().toString();
+    }
+
+    private StringBuilder add(StringBuilder num1, StringBuilder num2) {
+        StringBuilder result = new StringBuilder();
+        int carry = 0;
+        for (int i = 0; i < Math.max(num1.length(), num2.length()); i++) {
+            int num1Digit = 0;
+            int num2Digit = 0;
+            if (i < num1.length()) {
+                num1Digit += Character.getNumericValue(num1.charAt(i));
+            }
+            if (i < num2.length()) {
+                num2Digit += Character.getNumericValue(num2.charAt(i));
+            }
+            result.append((num1Digit + num2Digit + carry) % 10);
+            carry = (num1Digit + num2Digit + carry) / 10;
+        }
+        if (carry != 0) {
+            result.append(carry);
+        }
+        return result;
+    }
+
+}
